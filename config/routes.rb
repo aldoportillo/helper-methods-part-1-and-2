@@ -17,3 +17,4 @@ Rails.application.routes.draw do
   
   # DELETE
   delete "/movies/:id" => "movies#destroy" ##Method is implied since it is defined for the get
+end
