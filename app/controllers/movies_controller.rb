@@ -33,8 +33,8 @@ class MoviesController < ApplicationController
 
   def create
     @movie = Movie.new
-    @movie.title = params.fetch("query_title")
-    @movie.description = params.fetch("query_description")
+    @movie.title = params.fetch("title")
+    @movie.description = params.fetch("description")
 
     if @movie.valid?
       @movie.save
@@ -58,8 +58,8 @@ class MoviesController < ApplicationController
     id = params.fetch(:id)
     movie = Movie.where({ :id => id }).first
 
-    movie.title = params.fetch("query_title")
-    movie.description = params.fetch("query_description")
+    movie.title = params.fetch("title")
+    movie.description = params.fetch("description")
 
     if movie.save
       redirect_to(movie_path(movie), { :notice => "Movie updated successfully."} )
