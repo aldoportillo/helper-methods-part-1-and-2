@@ -61,11 +61,10 @@ class MoviesController < ApplicationController
     the_movie.title = params.fetch("query_title")
     the_movie.description = params.fetch("query_description")
 
-    if the_movie.valid?
-      the_movie.save
-      redirect_to(movies_path(the_movie.id), { :notice => "Movie updated successfully."} )
+    if the_movie.save
+      redirect_to(movie_path(the_movie), { :notice => "Movie updated successfully."} )
     else
-      redirect_to(movies_path(the_movie.id), { :alert => "Movie failed to update successfully." })
+      redirect_to(movie_path(the_movie), { :alert => "Movie failed to update successfully. #{the_movie.errors.full_messages.split.join(". ")}." })
     end
   end
 
