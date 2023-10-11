@@ -1,8 +1,7 @@
 class MoviesController < ApplicationController
   def new
     @the_movie = Movie.new
-
-    render template: "movies/new"
+    # Render is assumed since view is in views/movies/new and controller is Movies#new
   end
 
   def index
@@ -16,7 +15,8 @@ class MoviesController < ApplicationController
       end
 
       format.html do
-        render({ :template => "movies/index" })
+        render "movies/index"
+        #Can maybe remove this too I think
       end
     end
   end
@@ -28,7 +28,7 @@ class MoviesController < ApplicationController
 
     @the_movie = matching_movies.first
 
-    render({ :template => "movies/show" })
+    ##Render is assumed
   end
 
   def create
@@ -38,9 +38,9 @@ class MoviesController < ApplicationController
 
     if @the_movie.valid?
       @the_movie.save
-      redirect_to("/movies", { :notice => "Movie created successfully." })
+      redirect_to(movies_url, { :notice => "Movie created successfully." })
     else
-      render template: "movies/new"
+      render "movies/new"
     end
   end
 
@@ -51,7 +51,7 @@ class MoviesController < ApplicationController
 
     @the_movie = matching_movies.first
 
-    render({ :template => "movies/edit" })
+    #View is assumed
   end
 
   def update
@@ -63,9 +63,9 @@ class MoviesController < ApplicationController
 
     if the_movie.valid?
       the_movie.save
-      redirect_to("/movies/#{the_movie.id}", { :notice => "Movie updated successfully."} )
+      redirect_to(movies_path(the_movie.id), { :notice => "Movie updated successfully."} )
     else
-      redirect_to("/movies/#{the_movie.id}", { :alert => "Movie failed to update successfully." })
+      redirect_to(movies_path(the_movie.id), { :alert => "Movie failed to update successfully." })
     end
   end
 
@@ -75,6 +75,6 @@ class MoviesController < ApplicationController
 
     the_movie.destroy
 
-    redirect_to("/movies", { :notice => "Movie deleted successfully."} )
+    redirect_to(movies_path, { :notice => "Movie deleted successfully."} )
   end
 end
